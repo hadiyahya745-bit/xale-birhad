@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>خالێ بیرهاد گولی – هەنگڤێ سروشتی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;700;900&family=Noto+Sans+Arabic:wght@300;400;500;600&display=swap">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { amber: { DEFAULT: '#F59E0B' }, char: '#1A1511', cream: '#FBF5E6' },
+  fontFamily: { display: ['Noto Kufi Arabic', 'Tahoma', 'Arial', 'sans-serif'], body: ['Noto Sans Arabic', 'Tahoma', 'Arial', 'sans-serif'] }
+}}};
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  h1, h2, h3, .font-display { letter-spacing: 0 !important; word-spacing: .05em; }
+  .text-sm { font-size: .95rem !important; line-height: 1.7 !important; }
+  body { font-family: 'Noto Sans Arabic', Tahoma, Arial, sans-serif; font-size: 1.05rem; line-height: 1.9; letter-spacing: 0; background: #FBF5E6; color: #1A1511; overflow-x: hidden; }
+  .font-display { font-family: 'Noto Kufi Arabic', Tahoma, sans-serif; }
+  /* Hexagon pattern (kêm-diyar) */
+  .hex-bg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34zM28 100L0 84V50M56 84L28 100' fill='none' stroke='%23F59E0B' stroke-opacity='.16' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-size: 56px 100px;
+  }
+  .hex-bg-dark {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34zM28 100L0 84V50M56 84L28 100' fill='none' stroke='%23F59E0B' stroke-opacity='.10' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-size: 56px 100px;
+  }
+  h1.hero-in, p.hero-in { text-shadow: 0 2px 18px rgba(26,21,17,.85); }
+  .hexclip { clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+  /* Honey drip */
+  .drip { animation: drip 3.4s ease-in infinite; transform-origin: top; }
+  @keyframes drip { 0% { transform: scaleY(.2); opacity: 0 } 15% { opacity: 1 } 70% { transform: scaleY(1) translateY(0) } 100% { transform: scaleY(1) translateY(60px); opacity: 0 } }
+  .bee { position: fixed; top: 0; left: 0; width: 34px; height: 34px; pointer-events: none; z-index: 60; will-change: transform; filter: drop-shadow(0 4px 4px rgba(0,0,0,.25)); }
+  .wing { transform-origin: 50% 70%; animation: flap .09s linear infinite alternate; }
+  .wing.r { animation-direction: alternate-reverse; }
+  @keyframes flap { from { transform: scaleY(1) rotate(-6deg) } to { transform: scaleY(.45) rotate(6deg) } }
+  .card { transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+  .card:hover { transform: translateY(-10px) rotate(-.6deg); box-shadow: 0 30px 50px -20px rgba(245,158,11,.45); }
+  .soc { transition: transform .3s, background .3s, color .3s; }
+  .soc:hover { transform: translateY(-6px) scale(1.04); background: #F59E0B; color: #1A1511; }
+  .soc:hover svg { animation: wob .5s ease; }
+  @keyframes wob { 30% { transform: rotate(-14deg) } 60% { transform: rotate(10deg) } }
+  :focus-visible { outline: 3px solid #F59E0B; outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { .wing, .drip { animation: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<!-- ===== Navbar ===== -->
+<header class="fixed top-0 inset-x-0 z-50">
+  <nav class="mx-auto max-w-6xl mt-4 mx-4 md:mx-auto flex items-center justify-between px-5 py-3 rounded-full bg-char/85 backdrop-blur text-cream">
+    <a href="#top" class="font-display font-black text-xl flex items-center gap-2">
+      <img src="https://plain-eeur-prod-public.komododecks.com/202610/29/X8fH3By0Qe39CPvnVXHS/image.jpg" alt="Logo" width="40" height="40" referrerpolicy="no-referrer" class="w-10 h-10 rounded-full object-cover border-2 border-amber bg-cream" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'hexclip bg-amber w-7 h-7 inline-block'}))"><span data-t="brand">خالێ بیرهاد گولی</span>
+    </a>
+    <ul class="hidden md:flex gap-7 text-sm">
+      <li><a class="hover:text-amber" href="#about" data-t="nav_about">دەربارەی مە</a></li>
+      <li><a class="hover:text-amber" href="#products" data-t="nav_products">بەرهەم</a></li>
+      <li><a class="hover:text-amber" href="#social" data-t="nav_social">تۆرێن جڤاکی</a></li>
+      <li><a class="hover:text-amber" href="#contact" data-t="nav_contact">پەیوەندی</a></li>
+    </ul>
+    <a href="#contact" class="bg-amber text-char text-sm font-semibold px-4 py-2 rounded-full" data-t="nav_cta">فەرمان بکە</a>
+  </nav>
+</header>
+
+<!-- ===== Hero ===== -->
+<section id="top" class="relative min-h-screen bg-char text-cream hex-bg-dark overflow-hidden flex items-center">
+  <div class="absolute -left-24 top-1/2 -translate-y-1/2 w-[620px] max-w-[90vw] opacity-30 md:opacity-100" id="hero-hex">
+    <svg viewBox="0 0 400 460" class="w-full">
+      <defs>
+        <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBBF24"/><stop offset="1" stop-color="#D97706"/></linearGradient>
+      </defs>
+      <polygon points="200,10 380,110 380,350 200,450 20,350 20,110" fill="url(#hg)"/>
+      <clipPath id="hc"><polygon points="200,50 345,130 345,330 200,410 55,330 55,130"/></clipPath>
+      <image href="https://plain-eeur-prod-public.komododecks.com/202610/29/c7eWkAMdIOi309Wy7JQT/image.jpg" x="55" y="50" width="290" height="360" preserveAspectRatio="xMidYMid slice" clip-path="url(#hc)"/>
+      <polygon points="200,50 345,130 345,330 200,410 55,330 55,130" fill="none" stroke="#1A1511" stroke-opacity=".35" stroke-width="4"/>
+    </svg>
+  </div>
+  <div class="relative z-10 mx-auto max-w-6xl px-6 pt-32 pb-24">
+    <p class="hero-in text-amber font-medium mb-5" data-t="hero_kicker">ژ کۆچکێن مە، ڕاستەڕاست ژ شانێ</p>
+    <h1 class="hero-in font-display font-black leading-[1.3] text-[clamp(2.4rem,7.5vw,6rem)] max-w-3xl" data-t="hero_title">هەنگڤێ پاقژ، ژ دلێ خالێ بیرهاد.</h1>
+    <p class="hero-in mt-7 max-w-lg text-lg text-cream/75" data-t="hero_sub">هەنگڤێ سروشتی یێ چیایێن مە — بێ شەکەر، بێ گەرمکرن، بێ تێکەلی. هەر قوتیەک ب دەست دهێتە کۆمکرن.</p>
+    <div class="hero-in mt-10 flex flex-wrap gap-4">
+      <a href="#products" class="bg-amber text-char font-semibold px-7 py-3.5 rounded-full hover:scale-105 transition" data-t="hero_cta1">بەرهەمان ببینە</a>
+      <a href="#about" class="border border-cream/40 px-7 py-3.5 rounded-full hover:border-amber hover:text-amber transition" data-t="hero_cta2">چیرۆکا مە</a>
+    </div>
+  </div>
+  <!-- Honey drips -->
+  <svg class="absolute bottom-0 inset-x-0 w-full h-24 text-cream" viewBox="0 0 1200 100" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="currentColor" d="M0 100V60c60 0 60 30 120 30s40-40 100-40 50 50 110 50 50-30 110-30 40 30 100 30 60-60 120-60 40 50 100 50 60-30 120-30 50 40 110 40 60-50 120-50 50 40 100 40V100z"/>
+  </svg>
+  <span class="drip absolute bottom-20 left-[18%] w-2.5 h-14 rounded-full bg-amber" style="animation-delay:.2s"></span>
+  <span class="drip absolute bottom-20 left-[47%] w-3 h-16 rounded-full bg-amber" style="animation-delay:1.6s"></span>
+  <span class="drip absolute bottom-20 left-[78%] w-2.5 h-12 rounded-full bg-amber" style="animation-delay:2.4s"></span>
+</section>
+
+<!-- ===== About ===== -->
+<section id="about" class="relative hex-bg py-28">
+  <div class="mx-auto max-w-6xl px-6 grid md:grid-cols-2 gap-14 items-center">
+    <div class="relative flex justify-center" data-parallax>
+      <div class="hexclip bg-char w-72 h-80 md:w-96 md:h-[27rem] flex items-center justify-center">
+        <div class="hexclip bg-amber w-[92%] h-[92%] flex items-center justify-center text-char text-center p-8">
+          <p class="font-display font-bold text-2xl md:text-3xl leading-[1.4]" data-t="about_badge">ژ شانا سروشتی هەتا سەر سفرا تە</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2 class="font-display font-black text-4xl md:text-5xl leading-[1.4]" data-t="about_title">هەنگڤانی بۆ مە کار نینە، ژیانە.</h2>
+      <p class="mt-6 text-lg text-char/75 leading-relaxed max-w-prose" data-t="about_p1">ژ سالانڤە ئەم چاڤدێریا کۆچکێن هەنگان دکەین ل چیایێن ب گولێن چۆلێ. هەر تشتەکێ هەنگ بدەنە مە، ئەم تنێ ئەوی وەردگرین — و خۆ ژ کیمیایێ دویر دگرین.</p>
+      <p class="mt-4 text-lg text-char/75 leading-relaxed max-w-prose" data-t="about_p2">هەنگڤ ب دەست دهێتە ڤەکرن، تنێ ب پاڤێژکا ئاسایی دهێتە پاقژکرن و ڕاستەڕاست دهێتە تژیکرن ل ناڤ شووشێ. ژ ڤێ چەندێ تام و بۆن و سوودێن وی ب تەمامی دمینن.</p>
+      <dl class="mt-8 grid grid-cols-2 gap-4 max-w-sm">
+        <div><dt class="font-display font-black text-3xl text-amber" data-t="st1_n">100%</dt><dd class="text-sm text-char/70" data-t="st1_l">سروشتی</dd></div>
+        <div><dt class="font-display font-black text-3xl text-amber" data-t="st2_n">0</dt><dd class="text-sm text-char/70" data-t="st2_l">شەکەرێ زێدە</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Products ===== -->
+<section id="products" class="bg-char text-cream hex-bg-dark py-28">
+  <div class="mx-auto max-w-6xl px-6">
+    <h2 class="font-display font-black text-4xl md:text-5xl max-w-xl" data-t="prod_title">بەرهەمێن مە</h2>
+    <p class="mt-4 text-cream/70 max-w-lg" data-t="prod_sub">هەر هەنگڤەک ژ جهەکێ جودا دهێت و تامەکێ جودا یێ هەی.</p>
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-7" id="product-grid"></div>
+  </div>
+</section>
+
+<!-- ===== Social ===== -->
+<section id="social" class="relative hex-bg py-28">
+  <div class="mx-auto max-w-6xl px-6">
+    <h2 class="font-display font-black text-4xl md:text-5xl" data-t="soc_title">مە فۆلۆ بکە</h2>
+    <p class="mt-4 text-char/70 max-w-lg" data-t="soc_sub">وێنە، ڤیدیۆ و نووچەیێن کۆچکان هەر ڕۆژ ل سەر ڤان پلاتفۆرمان.</p>
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5" id="social-grid"></div>
+    <div class="mt-14 bg-char text-cream rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
+      <div class="bg-white p-4 rounded-2xl"><div id="qr"></div></div>
+      <div class="text-center md:text-right">
+        <h3 class="font-display font-bold text-2xl md:text-3xl" data-t="qr_title">ماڵپەرێ مە ب QR ڤەکە</h3>
+        <p class="mt-3 text-cream/70 max-w-md" data-t="qr_sub">کامێرایا مۆبایلا خۆ ل ڤێ کۆدێ بگرە و ماڵپەر ڕاستەڕاست دهێتە ڤەکرن.</p>
+        <a id="qr-dl" download="xale-birhad-gulli-qr.png" class="mt-5 inline-block bg-amber text-char font-semibold px-6 py-3 rounded-full hover:scale-105 transition" data-t="qr_dl">QR داگرە</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact" class="bg-amber py-28">
+  <div class="mx-auto max-w-6xl px-6 grid md:grid-cols-2 gap-14">
+    <div>
+      <h2 class="font-display font-black text-4xl md:text-5xl text-char leading-[1.4]" data-t="ct_title">نها فەرمان بکە.</h2>
+      <p class="mt-5 text-char/80 text-lg max-w-md" data-t="ct_sub">فۆرمێ تژی بکە، فەرمان ڕاستەڕاست ب WhatsApp بۆ مە دهێت. ئەم یێن زو بەرسڤا تە ددەین.</p>
+      <a id="wa-btn" target="_blank" rel="noopener" class="mt-8 inline-flex items-center gap-3 bg-char text-cream font-semibold px-7 py-4 rounded-full hover:scale-105 transition">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.1 1.600 5.900L0 24l6.400-1.700a11.900 11.900 0 0 0 5.600 1.400h.1c6.500 0 11.900-5.300 11.900-11.900 0-3.200-1.200-6.200-3.500-8.300zM12 21.700a9.900 9.900 0 0 1-5-1.400l-.4-.2-3.800 1 1-3.700-.2-.4A9.800 9.800 0 1 1 12 21.700zm5.400-7.400c-.3-.1-1.800-.9-2-1s-.5-.1-.7.100-.8 1-1 1.200-.4.200-.7.100a8 8 0 0 1-4-3.500c-.3-.5.300-.5.900-1.600.1-.2 0-.4 0-.5l-.9-2.200c-.2-.6-.5-.5-.7-.5h-.6a1.200 1.200 0 0 0-.9.400 3.800 3.800 0 0 0-1.200 2.800 6.600 6.600 0 0 0 1.400 3.500 15 15 0 0 0 5.800 5.100c2.100.9 2.900.9 3.400.8a2.900 2.900 0 0 0 1.900-1.400 2.300 2.300 0 0 0 .2-1.400c-.1-.1-.3-.2-.6-.3z"/></svg>
+        <span data-t="ct_wa">ڕاستەڕاست ب WhatsApp</span>
+      </a>
+    </div>
+    <form id="order-form" class="bg-cream rounded-3xl p-7 md:p-9 shadow-2xl space-y-4">
+      <label class="block text-sm font-medium"><span data-t="f_name">ناڤ</span>
+        <input name="name" required class="mt-1 w-full rounded-xl border border-char/20 bg-white px-4 py-3 focus:border-amber focus:outline-none"></label>
+      <label class="block text-sm font-medium"><span data-t="f_phone">ژمارا تەلەفۆنێ</span>
+        <input name="phone" type="tel" dir="ltr" required class="mt-1 w-full rounded-xl border border-char/20 bg-white px-4 py-3 focus:border-amber focus:outline-none"></label>
+      <label class="block text-sm font-medium"><span data-t="f_product">بەرهەم</span>
+        <select name="product" id="f-product" class="mt-1 w-full rounded-xl border border-char/20 bg-white px-4 py-3 focus:border-amber focus:outline-none"></select></label>
+      <label class="block text-sm font-medium"><span data-t="f_msg">پەیام</span>
+        <textarea name="msg" rows="3" class="mt-1 w-full rounded-xl border border-char/20 bg-white px-4 py-3 focus:border-amber focus:outline-none"></textarea></label>
+      <button class="w-full bg-char text-cream font-semibold py-3.5 rounded-xl hover:bg-amber hover:text-char transition" data-t="f_send">فەرمانێ بهنێرە</button>
+    </form>
+  </div>
+</section>
+
+<footer class="bg-char text-cream/60 text-center text-sm py-8"><span data-t="footer">© خالێ بیرهاد گولی — هەنگڤێ سروشتی</span><br><span class="mt-1 inline-block" data-t="designer">دیزاین: <bdi dir="ltr" class="text-amber font-semibold">hadiiyahya77</bdi></span></footer>
+<button id="snd" type="button" aria-label="دەنگێ هەنگان" title="دەنگێ هەنگان" class="fixed bottom-4 left-4 z-[70] w-12 h-12 rounded-full bg-char text-cream text-xl shadow-lg border border-amber/60 hover:scale-110 transition"></button>
+
+
+<script>
+/* =====================================================
+   EDIT HERE — agahiyên te li vir biguherîne
+   ===================================================== */
+const CONFIG = {
+  siteUrl: '',                        // لینکی ماڵپەڕەکەت (نموونە: https://...) — ئەگەر بەتاڵ بێت، لینکی ئێستا بەکاردێت
+  whatsapp: '9647508709569',          // ژمارەی WhatsApp (بێ +)
+  social: [
+    { name: 'Instagram', url: 'https://www.instagram.com/birhad_gravi_gulli?xtok=bG92ZGx1djNka3dy' },
+    { name: 'TikTok',    url: 'https://www.tiktok.com/@birhad_gravi.golli?_r=1&_t=ZS-9AxrL7XK4uH' },
+    { name: 'Facebook',  url: 'https://www.facebook.com/profile.php?id=61588945634280&mibextid=ZbWKwL' },
+    { name: 'Snapchat',  url: 'https://www.snapchat.com/add/berhad40?share_id=rfLQc8PP_MA&locale=en-GB' },
+    { name: 'YouTube',   url: 'https://youtube.com/@birhad-gulli?si=E0lphQD-j__G2WXV' },
+    { name: 'WhatsApp',  url: 'https://wa.me/9647508709569' },
+  ],
+  products: [
+    { name: 'هێنگڤینێ زوزانا شانا سروشتی', desc: 'ژ زوزانێن چیایی. سروشتی و پاقژ، بێ تێکەلی.', price: '120,000 دینار', size: '1 کگم' },
+    { name: 'هێنگڤینێ زوزانا شانە ئەساس', desc: 'ژ زوزانێن چیایی. سروشتی و پاقژ، بێ تێکەلی.', price: '80,000 دینار', size: '1 کگم' },
+    { name: 'هێنگڤینێ زوزانا دوبە', desc: 'ژ زوزانێن چیایی. سروشتی و پاقژ، بێ تێکەلی.', price: '80,000 دینار', size: '500 گرام' },
+  ],
+};
+/* ===== Kurdî UI text: her nivîs bi data-t ê di HTML de ye, rasterast biguherîne ===== */
+
+const $ = (s, r = document) => r.querySelector(s);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Social icons */
+const ICONS = {
+  Instagram: '<path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.300.1 4.800 1.700 4.900 4.900.1 1.300.1 1.600.1 4.800s0 3.600-.1 4.800c-.1 3.200-1.700 4.800-4.900 4.900-1.300.1-1.600.1-4.800.1s-3.600 0-4.800-.1c-3.300-.1-4.800-1.700-4.900-4.900C2.200 15.600 2.200 15.200 2.200 12s0-3.600.1-4.800C2.400 3.900 4 2.400 7.200 2.300 8.400 2.200 8.800 2.200 12 2.200zM12 0C8.700 0 8.300 0 7.100.1 2.700.3.300 2.700.1 7.100 0 8.300 0 8.700 0 12s0 3.700.1 4.900c.2 4.400 2.600 6.800 7 7C8.300 24 8.700 24 12 24s3.700 0 4.900-.1c4.400-.2 6.800-2.600 7-7 .1-1.200.1-1.600.1-4.900s0-3.700-.1-4.900c-.2-4.400-2.600-6.800-7-7C15.700 0 15.300 0 12 0zm0 5.800a6.200 6.200 0 1 0 0 12.400 6.200 6.200 0 0 0 0-12.400zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.400-11.800a1.400 1.400 0 1 0 0 2.900 1.400 1.400 0 0 0 0-2.900z"/>',
+  Facebook: '<path d="M24 12a12 12 0 1 0-13.900 11.900v-8.400H7.100V12h3V9.400c0-3 1.800-4.700 4.500-4.700 1.300 0 2.700.2 2.700.2v3h-1.500c-1.500 0-2 .9-2 1.900V12h3.400l-.5 3.500h-2.800v8.400A12 12 0 0 0 24 12z"/>',
+  TikTok: '<path d="M19.600 6.200a5.400 5.400 0 0 1-3.300-4.200V1.500h-3.900v15.200a3.300 3.300 0 1 1-2.300-3.100V9.600a7.200 7.200 0 1 0 6.200 7.100V8.800a9.200 9.200 0 0 0 5.400 1.700V6.600a5.400 5.400 0 0 1-2.100-.4z"/>',
+  WhatsApp: '<path d="M20.500 3.500A11.800 11.800 0 0 0 12 0C5.400 0 .1 5.300.1 11.900c0 2.100.6 4.100 1.600 5.900L0 24l6.400-1.700a11.900 11.900 0 0 0 5.600 1.400c6.600 0 11.900-5.300 11.900-11.900 0-3.200-1.200-6.200-3.400-8.300zM12 21.700a9.900 9.900 0 0 1-5-1.400l-.4-.2-3.800 1 1-3.700-.2-.4A9.800 9.800 0 1 1 12 21.700zm5.400-7.400c-.3-.1-1.800-.9-2-1s-.5-.1-.7.100-.8 1-1 1.200-.4.200-.7.100a8 8 0 0 1-4-3.500c-.3-.5.300-.5.900-1.600.1-.2 0-.4 0-.5l-.9-2.200c-.2-.6-.5-.5-.7-.5h-.6a1.200 1.200 0 0 0-.9.400 3.800 3.800 0 0 0-1.200 2.800 6.600 6.600 0 0 0 1.400 3.500 15 15 0 0 0 5.800 5.100c2.100.9 2.900.9 3.400.8a2.900 2.900 0 0 0 1.900-1.400 2.300 2.300 0 0 0 .2-1.400c-.1-.1-.3-.2-.6-.3z"/>',
+  Snapchat: '<path d="M12 2.500c-3 0-5 2.200-5 5.200v2.300c-.6.200-1.300.100-1.800-.200-.4-.200-.9.100-.9.500 0 .500.600.900 1.500 1.200-.6 1.700-1.700 2.800-3 3.200-.3.100-.3.500 0 .600.800.300 1.700.400 2.200.500.200.400.100 1 .6 1.100.6.100 1.400-.3 2.200-.1 1 .3 1.700 1.800 4.200 1.800s3.200-1.500 4.200-1.800c.8-.2 1.600.2 2.200.1.5-.1.4-.7.6-1.100.5-.1 1.400-.2 2.200-.5.3-.1.3-.5 0-.6-1.300-.4-2.400-1.500-3-3.200.9-.3 1.500-.7 1.500-1.200 0-.4-.5-.7-.9-.5-.5.3-1.200.4-1.800.2V7.700c0-3-2-5.200-5-5.200z"/>',
+  YouTube: '<path d="M23.500 6.200a3 3 0 0 0-2.100-2.100C19.500 3.600 12 3.600 12 3.600s-7.500 0-9.400.5A3 3 0 0 0 .5 6.200C0 8.100 0 12 0 12s0 3.900.5 5.800a3 3 0 0 0 2.100 2.100c1.900.5 9.400.5 9.400.5s7.500 0 9.400-.5a3 3 0 0 0 2.100-2.100c.5-1.900.5-5.800.5-5.800s0-3.900-.5-5.800zM9.600 15.600V8.400l6.200 3.600-6.200 3.600z"/>',
+};
+$('#social-grid').innerHTML = CONFIG.social.map(s => `
+  <a href="${s.url}" target="_blank" rel="noopener" class="soc bg-char text-cream rounded-3xl p-6 flex flex-col items-center gap-3">
+    <svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${ICONS[s.name] || ''}</svg>
+    <span class="font-medium">${s.name}</span>
+  </a>`).join('');
+
+/* Products */
+$('#product-grid').innerHTML = CONFIG.products.map((p, i) => `
+  <article class="card bg-cream text-char rounded-3xl p-7 flex flex-col">
+    <div class="hexclip bg-amber w-24 h-28 flex items-center justify-center mb-6">
+      <svg width="40" height="48" viewBox="0 0 40 48" aria-hidden="true"><rect x="8" y="2" width="24" height="8" rx="2" fill="#1A1511"/><rect x="4" y="10" width="32" height="36" rx="8" fill="#92400E" fill-opacity=".85"/><rect x="9" y="20" width="22" height="14" rx="3" fill="#FBF5E6"/></svg>
+    </div>
+    <h3 class="font-display font-bold text-2xl">${p.name}</h3>
+    <p class="mt-2 text-char/70 flex-1">${p.desc}</p>
+    <div class="mt-6 flex items-center justify-between">
+      <div><div class="font-display font-black text-xl">${p.price}</div><div class="text-sm text-char/60">${p.size}</div></div>
+      <a href="#contact" data-pick="${i}" class="bg-char text-cream text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-amber hover:text-char transition">هەلبژێرە</a>
+    </div>
+  </article>`).join('');
+$('#f-product').innerHTML = CONFIG.products.map(p => `<option>${p.name}</option>`).join('');
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-pick]');
+  if (a) $('#f-product').selectedIndex = +a.dataset.pick;
+});
+
+/* QR code */
+(function () {
+  const url = CONFIG.siteUrl || location.href;
+  const box = $('#qr');
+  if (!window.QRCode) { box.textContent = url; return; }
+  new QRCode(box, { text: url, width: 176, height: 176, colorDark: '#1A1511', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
+  setTimeout(() => { const c = box.querySelector('canvas'); if (c) $('#qr-dl').href = c.toDataURL('image/png'); }, 300);
+})();
+
+/* WhatsApp */
+const waLink = text => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
+$('#wa-btn').href = waLink('سلاڤ خالێ بیرهاد، ئەز دخوازم هەنگڤ بکڕم.');
+$('#order-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const txt = `سلاڤ خالێ بیرهاد!\nناڤ: ${f.get('name')}\nتەلەفۆن: ${f.get('phone')}\nبەرهەم: ${f.get('product')}\nپەیام: ${f.get('msg') || '-'}`;
+  window.open(waLink(txt), '_blank');
+});
+
+/* GSAP: one hero entrance + parallax */
+if (!reduced && window.gsap) {
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.hero-in', { y: 40, opacity: 0, duration: 1, stagger: .15, ease: 'power3.out' });
+  gsap.to('#hero-hex', { yPercent: -18, rotate: 6, ease: 'none', scrollTrigger: { trigger: '#top', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.to('[data-parallax]', { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: true } });
+}
+
+/* ===== Interactive bees: swarm follows the mouse / finger, scroll stirs them ===== */
+const BEE_SVG = `<svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+  <g class="wing"><ellipse cx="14" cy="11" rx="8" ry="5" fill="#fff" fill-opacity=".75" transform="rotate(-25 14 11)"/></g>
+  <g class="wing r"><ellipse cx="26" cy="11" rx="8" ry="5" fill="#fff" fill-opacity=".75" transform="rotate(25 26 11)"/></g>
+  <ellipse cx="20" cy="24" rx="9" ry="11" fill="#F59E0B"/>
+  <path d="M11.500 21c5.500 2 11.500 2 17 0M11 27c6 2.500 12 2.500 18 0" stroke="#1A1511" stroke-width="3.500" fill="none"/>
+  <circle cx="20" cy="13" r="5.500" fill="#1A1511"/><circle cx="18" cy="12" r="1.300" fill="#fff"/><circle cx="22" cy="12" r="1.300" fill="#fff"/>
+</svg>`;
+if (!reduced) {
+  const N = innerWidth < 640 ? 4 : 7;
+  const mouse = { x: innerWidth / 2, y: innerHeight / 2 };
+  let lastMove = performance.now(), scrollKick = 0, lastY = scrollY;
+  const bees = Array.from({ length: N }, (_, i) => {
+    const el = document.createElement('div');
+    el.className = 'bee'; el.innerHTML = BEE_SVG;
+    document.body.appendChild(el);
+    return { el, x: Math.random() * innerWidth, y: Math.random() * innerHeight, vx: 0, vy: 0, a: Math.random() * 6.28, r: 40 + i * 22, s: .6 + Math.random() * .8, rot: 0 };
+  });
+  const move = e => { const p = e.touches ? e.touches[0] : e; mouse.x = p.clientX; mouse.y = p.clientY; lastMove = performance.now(); };
+  addEventListener('mousemove', move, { passive: true });
+  addEventListener('touchmove', move, { passive: true });
+  addEventListener('scroll', () => { scrollKick += (scrollY - lastY) * .08; lastY = scrollY; }, { passive: true });
+  let t = 0;
+  (function tick() {
+    t += .016;
+    const idle = performance.now() - lastMove > 2500;
+    scrollKick *= .92;
+    bees.forEach((b, i) => {
+      b.a += .03 * b.s;
+      const cx = idle ? innerWidth / 2 + Math.cos(t * .3 + i) * innerWidth * .38 : mouse.x;
+      const cy = idle ? innerHeight / 2 + Math.sin(t * .4 + i * 1.7) * innerHeight * .32 : mouse.y;
+      const tx = cx + Math.cos(b.a + i) * b.r, ty = cy + Math.sin(b.a * 1.3 + i) * b.r * .7 + scrollKick * (i % 2 ? 6 : -6);
+      b.vx += (tx - b.x) * .006 * b.s; b.vy += (ty - b.y) * .006 * b.s;
+      b.vx *= .93; b.vy *= .93;
+      b.x += b.vx; b.y += b.vy;
+      const ang = Math.atan2(b.vy, b.vx) * 57.3 + 90;
+      b.rot += (Math.max(-35, Math.min(35, ((ang + 540) % 360) - 180)) - b.rot) * .1;
+      b.el.style.transform = `translate(${b.x - 17}px,${b.y - 17}px) rotate(${b.rot}deg)`;
+    });
+    requestAnimationFrame(tick);
+  })();
+}
+
+/* ===== Dengê mêşan: yek mêş + dengê klîkê (Web Audio, bê dosya) ===== */
+(function () {
+  const AC = window.AudioContext || window.webkitAudioContext;
+  const btn = document.getElementById('snd');
+  if (!AC || !btn) return;
+  let ctx, master, filt, bee, started = false, on = true, energy = 0, lx = null, ly = null, ls = scrollY;
+  function start() {
+    started = true; ctx = new AC();
+    master = ctx.createGain(); master.gain.value = 0;
+    filt = ctx.createBiquadFilter(); filt.type = 'bandpass'; filt.frequency.value = 650; filt.Q.value = 2.5;
+    bee = ctx.createOscillator(); bee.type = 'sawtooth'; bee.frequency.value = 230;      // yek mêş
+    const wob = ctx.createOscillator(); wob.frequency.value = 4.5;                        // lerizîna bilindahiyê
+    const wobG = ctx.createGain(); wobG.gain.value = 14; wob.connect(wobG); wobG.connect(bee.frequency);
+    const am = ctx.createGain(); am.gain.value = .65;
+    const trem = ctx.createOscillator(); trem.frequency.value = 48;                       // lêdana baskan
+    const tremG = ctx.createGain(); tremG.gain.value = .3; trem.connect(tremG); tremG.connect(am.gain);
+    bee.connect(filt); filt.connect(am); am.connect(master); master.connect(ctx.destination);
+    bee.start(); wob.start(); trem.start();
+    setInterval(() => {
+      energy *= .9;
+      const e = Math.min(energy, 1);
+      master.gain.setTargetAtTime(on ? .006 + e * .05 : 0, ctx.currentTime, .12);
+      filt.frequency.setTargetAtTime(600 + e * 300, ctx.currentTime, .12);
+      bee.frequency.setTargetAtTime(230 + e * 55, ctx.currentTime, .15);
+    }, 60);
+  }
+  function click() {                                                                      // dengê klîkê: bzzt-ek kurt
+    if (!started || !on) return;
+    const t = ctx.currentTime, o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter();
+    o.type = 'sawtooth'; o.frequency.setValueAtTime(240, t); o.frequency.exponentialRampToValueAtTime(420, t + .18);
+    f.type = 'bandpass'; f.frequency.value = 800; f.Q.value = 3;
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.09, t + .03); g.gain.exponentialRampToValueAtTime(.0001, t + .28);
+    o.connect(f); f.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t + .3);
+  }
+  function paint() { btn.textContent = on && started ? '🔊' : (started ? '🔇' : '🔈'); btn.setAttribute('aria-pressed', String(on && started)); }
+  const kick = e => {
+    const p = e.touches ? e.touches[0] : e;
+    if (lx !== null) energy += Math.min(Math.hypot(p.clientX - lx, p.clientY - ly) / 80, .5);
+    lx = p.clientX; ly = p.clientY;
+  };
+  addEventListener('mousemove', kick, { passive: true });
+  addEventListener('touchmove', kick, { passive: true });
+  addEventListener('scroll', () => { energy += Math.min(Math.abs(scrollY - ls) / 120, .5); ls = scrollY; }, { passive: true });
+  addEventListener('pointerdown', e => {
+    if (btn.contains(e.target)) return;
+    if (!started) { start(); paint(); }
+    if (ctx.state === 'suspended') ctx.resume();
+    click();
+  }, { passive: true });
+  addEventListener('keydown', () => { if (!started) { start(); paint(); } }, { passive: true });
+  btn.addEventListener('click', () => {
+    if (!started) start(); else on = !on;
+    if (ctx.state === 'suspended') ctx.resume();
+    paint();
+  });
+  paint();
+})();
+</script>
+</body>
+</html>
